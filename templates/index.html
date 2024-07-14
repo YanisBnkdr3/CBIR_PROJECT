@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        padding-top: 50px;
+      }
+      .container {
+        max-width: 900px;
+      }
+      h1 {
+        margin-bottom: 30px;
+      }
+      form {
+        margin-bottom: 30px;
+      }
+      img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        max-width: 100%;
+        height: auto;
+      }
+      figure {
+        text-align: center;
+      }
+      figcaption {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Simple Image Search Engine</h1>
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="form-inline text-center"
+      >
+        <div class="form-group">
+          <input type="file" name="query_img" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+      <h2 class="text-center">Query:</h2>
+      {% if query_path %}
+      <div class="text-center">
+        <img src="{{ query_path }}" class="img-thumbnail" width="300px" />
+      </div>
+      {% endif %}
+      <h2 class="text-center">Results:</h2>
+      <div class="row">
+        {% for score in scores %}
+        <div class="col-sm-3">
+          <figure>
+            <img
+              src="{{ url_for('dataset_file', filename=score[1]) }}"
+              class="img-responsive"
+            />
+            <figcaption>{{ score[0] }}</figcaption>
+          </figure>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
